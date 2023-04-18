@@ -16,6 +16,13 @@ node{
     }
    sh 'docker push arulesvaran/myweb:0.0.2'
    }
+   stage('Remove Previous Container'){
+	try{
+		sh 'docker rm -f tomcattest'
+	}catch(error){
+		//  do nothing if there is an exception
+	}
+	}
    stage('Docker deployment'){
    sh 'docker run -d -p 8090:8080 --name tomcattest arulesvaran/myweb:0.0.2' 
    }
